@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endpoint UI</title>
+</head>
+<body>
+
+<h1>Endpoint UI</h1>
+
+<button onclick="refreshToken()">Refresh Token</button>
+<button onclick="getEmployees()">Get Employees</button>
+<button onclick="deleteUser()">Delete User</button>
+<button onclick="authenticate()">Authenticate</button>
+
+<script>
+    async function refreshToken() {
+        const refreshToken = "your_refresh_token"; // replace with actual refresh token
+        const response = await fetch("http://localhost:8080/auth/refreshtoken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ refreshToken }),
+        });
+        console.log(await response.json());
+    }
+
+    async function getEmployees() {
+        const accessToken = "your_access_token"; // replace with actual access token
+        const response = await fetch("http://localhost:8080/employees", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        });
+        console.log(await response.json());
+    }
+
+    async function deleteUser() {
+        const userId = 1; // replace with actual user ID
+        const accessToken = "your_access_token"; // replace with actual access token
+        const response = await fetch(`http://localhost:8080/users/${userId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        });
+        console.log(await response.json());
+    }
+
+    async function authenticate() {
+        const username = "your_username"; // replace with actual username
+        const password = "your_password"; // replace with actual password
+        const response = await fetch("http://localhost:8080/auth/authenticate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        console.log(await response.json());
+    }
+</script>
+
+</body>
+</html>
